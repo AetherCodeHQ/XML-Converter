@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -9,32 +8,59 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("usage: XML-Converter <bytes|lines|reverse|upper|lower>")
+		fmt.Println("usage: xml-converter <file.xml>")
 		os.Exit(1)
 	}
-	mode := os.Args[1]
-	in := ""
-	if len(os.Args) > 2 {
-		in = os.Args[2]
+	data, err := os.ReadFile(os.Args[1])
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
-	lines := strings.Split(in, "\n")
-	switch mode {
-	case "lines":
-		fmt.Println(len(lines))
-	case "bytes":
-		fmt.Println(len(in))
-	case "upper":
-		fmt.Println(strings.ToUpper(in))
-	case "lower":
-		fmt.Println(strings.ToLower(in))
-	case "reverse":
-		runes := []rune(in)
-		for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-			runes[i], runes[j] = runes[j], runes[i]
+	s := string(data)
+	// basit string tabanli XML element/attribute sayma
+	tags := 0
+	attrs := 0
+	depth := 0
+	maxDepth := 0
+	i := 0
+	for i < len(s) {
+		if s[i] == '<' {
+			if i+1 < len(s) && s[i+1] == '/' {
+				tags++
+				depth--
+				i += 2
+				for i < len(s) && s[i] != '>' { i++ }
+				i++
+				continue
+			}
+			// self-closing?
+			end := strings.Index(s[i:], ">")
+			if end < 0 {
+				break
+			}
+			tagContent := s[i+1 : i+end]
+			if strings.HasSuffix(tagContent, "/") {
+				tags++
+				i += end + 1
+				continue
+			}
+			tags++
+			depth++
+			if depth > maxDepth {
+				maxDepth = depth
+			}
+			// count attributes: words with =
+			parts := strings.Fields(tagContent)
+			for _, p := range parts[1:] {
+				if strings.Contains(p, "=") {
+					attrs++
+				}
+			}
+			i += end + 1
+		} else {
+			i++
 		}
-		fmt.Println(string(runes))
-	default:
-		fmt.Fprintln(os.Stderr, "unknown mode:", mode)
-		os.Exit(1)
 	}
+	fmt.Printf("elements=%d attributes=%d max_depth=%d\n", tags, attrs, maxDepth)
+	fmt.Printf("size=%d bytes\n", len(s))
 }
