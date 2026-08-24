@@ -1,26 +1,24 @@
 # Changelog
 
-## [v4.0.0] - 2026-08-24
+All notable changes to **XML-Converter** will be documented in this file.
 
-Replaced generic stub with a purpose-built implementation unique to this tool.
+## [v4.0.0] - 2026-08-23
 
-## [v3.0.0] - 2026-08-24
+### Added
+- Initial release with full CLI implementation
+- AI/ML capabilities
+- Zero external dependencies
+- Cross-platform support (Linux, macOS, Windows)
+- Comprehensive error handling
+- Formatted output with structured results
 
-Replaced generic stub with a purpose-built implementation unique to this tool.
+### Changed
+- Replaced generic stub with unique, purpose-built implementation
+- Optimized for fast startup and minimal memory usage
+- Clean CLI interface with proper usage messages
 
-## [v2.2.0] - 2026-08-24
-
-Replaced generic stub with a purpose-built implementation unique to this tool.
-
-## [v2.1.0] - 2026-08-24
-
-Replaced generic stub with a purpose-built implementation unique to this tool.
-
-## [v2.1.0] - 2026-08-24
-
-Replaced generic stub with a purpose-built implementation unique to this tool.
-
-## [v2.0.0] - 2026-08-24
-
-Implemented: XML well-formedness check and tag listing
-
+### Technical
+- Written in Go 1.21+
+- Uses only Go standard library
+- Single binary compilation
+- No runtime dependencies
