@@ -125,3 +125,10 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 <p align="center">
   Built with ❤️ by <a href="https://github.com/AetherCodeHQ">AetherCode</a> • <a href="https://github.com/AetherCode-Core">AetherCode-Core</a>
 </p>
+
+![Version](https://img.shields.io/badge/Version-v2.0.0-00ADD8?style=for-the-badge)
+
+
+## What's new in v2.0.0
+
+- XML well-formedness check and tag listing
